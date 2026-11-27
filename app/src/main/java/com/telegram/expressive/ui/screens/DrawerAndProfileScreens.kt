@@ -238,10 +238,8 @@ fun ProfileScreen(
                     )
                     Spacer(Modifier.height(16.dp))
 
-                    ButtonGroup(
-                        overflowIndicator = { menuState ->
-                            ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
-                        }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
                     ) {
                         ToggleButton(
                             checked = false,

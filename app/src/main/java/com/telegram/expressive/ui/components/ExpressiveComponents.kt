@@ -148,34 +148,29 @@ fun ExpressiveFolderGroup(
         modifier = modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 6.dp)
+            .padding(horizontal = 16.dp, vertical = 6.dp),
+        horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
     ) {
-        ButtonGroup(
-            overflowIndicator = { menuState ->
-                ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
+        folders.forEachIndexed { index, folder ->
+            val shapes = when (index) {
+                0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
+                folders.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
+                else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
             }
-        ) {
-            folders.forEachIndexed { index, folder ->
-                val shapes = when (index) {
-                    0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
-                    folders.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
-                    else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
-                }
-                ToggleButton(
-                    checked = selectedFolder == folder,
-                    onCheckedChange = { checked ->
-                        if (checked) onFolderSelected(folder)
-                    },
-                    shapes = shapes,
-                    colors = ToggleButtonDefaults.tonalToggleButtonColors(),
-                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
-                ) {
-                    Text(
-                        text = folder.label,
-                        style = MaterialTheme.typography.labelLarge,
-                        maxLines = 1
-                    )
-                }
+            ToggleButton(
+                checked = selectedFolder == folder,
+                onCheckedChange = { checked ->
+                    if (checked) onFolderSelected(folder)
+                },
+                shapes = shapes,
+                colors = ToggleButtonDefaults.tonalToggleButtonColors(),
+                contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
+            ) {
+                Text(
+                    text = folder.label,
+                    style = MaterialTheme.typography.labelLarge,
+                    maxLines = 1
+                )
             }
         }
     }
